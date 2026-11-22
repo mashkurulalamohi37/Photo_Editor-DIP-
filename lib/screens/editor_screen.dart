@@ -9,12 +9,20 @@ import '../models/pixel_image.dart';
 import '../services/dip_engine.dart';
 import '../services/image_export_service.dart';
 import '../services/sample_image_generator.dart';
+import '../widgets/app_logo.dart';
 import '../widgets/digitization_calculator_sheet.dart';
 import '../widgets/histogram_chart.dart';
 import '../widgets/image_canvas_view.dart';
 
 class EditorScreen extends StatefulWidget {
-  const EditorScreen({super.key});
+  final bool initialShowHistogram;
+  final bool initialWorkbenchCollapsed;
+
+  const EditorScreen({
+    super.key,
+    this.initialShowHistogram = false,
+    this.initialWorkbenchCollapsed = true,
+  });
 
   @override
   State<EditorScreen> createState() => _EditorScreenState();
@@ -31,9 +39,9 @@ class _EditorScreenState extends State<EditorScreen> {
   final List<PixelImage> _undoStack = [];
   final List<DipOperationRecord> _operationHistory = [];
 
-  bool _showHistogram = true;
+  late bool _showHistogram;
   bool _splitCompareMode = false;
-  bool _isWorkbenchCollapsed = false;
+  late bool _isWorkbenchCollapsed;
   int _selectedTabIndex = 0;
 
   // Tab 1: Point & Enhancement parameters
@@ -73,6 +81,8 @@ class _EditorScreenState extends State<EditorScreen> {
   @override
   void initState() {
     super.initState();
+    _showHistogram = widget.initialShowHistogram;
+    _isWorkbenchCollapsed = widget.initialWorkbenchCollapsed;
     _loadSamplePreset(_activePresetId, resetHistory: true);
   }
 
@@ -511,19 +521,9 @@ class _EditorScreenState extends State<EditorScreen> {
         titleSpacing: 12,
         title: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF38BDF8), Color(0xFF6366F1)],
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                Icons.auto_fix_high_rounded,
-                size: 18,
-                color: Colors.white,
-              ),
+            const AppLogo(
+              size: 32,
+              showGlow: true,
             ),
             const SizedBox(width: 10),
             const Expanded(
@@ -758,9 +758,9 @@ class _EditorScreenState extends State<EditorScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         title: const Row(
           children: [
-            Icon(Icons.lightbulb_outline_rounded, color: Color(0xFFFBBF24), size: 22),
-            SizedBox(width: 8),
-            Text('Quick Start Guide', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+            AppLogo(size: 26, showGlow: false),
+            SizedBox(width: 10),
+            Text('Quick Start & About', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
           ],
         ),
         content: const SingleChildScrollView(
@@ -1154,8 +1154,12 @@ class _EditorScreenState extends State<EditorScreen> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     onTap: () => setState(() {
-                      _selectedTabIndex = index;
-                      _isWorkbenchCollapsed = false;
+                      if (_selectedTabIndex == index && !_isWorkbenchCollapsed) {
+                        _isWorkbenchCollapsed = true;
+                      } else {
+                        _selectedTabIndex = index;
+                        _isWorkbenchCollapsed = false;
+                      }
                     }),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 7),

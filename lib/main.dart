@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/editor_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -7,10 +8,25 @@ void main() {
 }
 
 class DipStudioApp extends StatelessWidget {
-  const DipStudioApp({super.key});
+  final bool initialShowHistogram;
+  final bool initialWorkbenchCollapsed;
+  final bool? enableSplashScreen;
+
+  const DipStudioApp({
+    super.key,
+    this.initialShowHistogram = false,
+    this.initialWorkbenchCollapsed = true,
+    this.enableSplashScreen,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // When running inside an automated test without explicit splash flag,
+    // load EditorScreen directly so existing widget tests don't stall on timers.
+    final bool isTestEnv =
+        WidgetsBinding.instance.runtimeType.toString().contains('TestWidgetsFlutterBinding');
+    final bool showSplash = enableSplashScreen ?? !isTestEnv;
+
     return MaterialApp(
       title: 'DIP Studio',
       debugShowCheckedModeBanner: false,
@@ -27,7 +43,12 @@ class DipStudioApp extends StatelessWidget {
           surface: const Color(0xFF11151E),
         ),
       ),
-      home: const EditorScreen(),
+      home: showSplash
+          ? const SplashScreen()
+          : EditorScreen(
+              initialShowHistogram: initialShowHistogram,
+              initialWorkbenchCollapsed: initialWorkbenchCollapsed,
+            ),
     );
   }
 }

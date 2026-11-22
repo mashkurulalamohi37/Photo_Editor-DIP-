@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 import 'package:dip_studio/main.dart';
 import 'package:dip_studio/models/pixel_image.dart';
+import 'package:dip_studio/screens/splash_screen.dart';
 import 'package:dip_studio/services/dip_engine.dart';
 import 'package:dip_studio/services/sample_image_generator.dart';
+import 'package:dip_studio/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -369,7 +371,13 @@ void main() {
       await tapVisible(find.text('DIP Test Chart'));
       await tapVisible(find.text('Mountain Sunset'));
 
-      // 2. Test Tab 0: Enhance (Point Ops & Histogram)
+      // 2. Expand workbench (hidden/collapsed by default)
+      expect(find.text('Show'), findsOneWidget);
+      await tester.tap(find.text('Show'));
+      await tester.pump();
+      expect(find.text('Hide'), findsOneWidget);
+
+      // 3. Test Tab 0: Enhance (Point Ops & Histogram)
       await tapVisible(find.text('Grayscale'));
       expect(find.textContaining('Grayscale Luminance'), findsOneWidget);
 
@@ -607,6 +615,10 @@ void main() {
       await tester.pumpWidget(const DipStudioApp());
       await tester.pump();
 
+      // Toggle Histogram visibility (hidden by default)
+      await tester.tap(find.byIcon(Icons.bar_chart_rounded));
+      await tester.pump();
+
       // Toggle Histogram channel mode: RGB + Lum <-> Lum Only
       await tester.tap(find.text('RGB + Lum'));
       await tester.pump();
@@ -614,6 +626,10 @@ void main() {
       await tester.tap(find.text('Lum Only'));
       await tester.pump();
       expect(find.text('RGB + Lum'), findsOneWidget);
+
+      // Expand workbench (collapsed by default)
+      await tester.tap(find.text('Enhance'));
+      await tester.pump();
 
       // Test HSV Hue transform button on Tab 0
       await tester.ensureVisible(find.text('Hue +0°'));
@@ -762,6 +778,10 @@ void main() {
       await tester.pumpWidget(const DipStudioApp());
       await tester.pump();
 
+      // Expand workbench (collapsed by default)
+      await tester.tap(find.text('Enhance'));
+      await tester.pump();
+
       await tester.ensureVisible(find.text('Rotate 90°'));
       await tester.tap(find.text('Rotate 90°'));
       await tester.pump();
@@ -776,6 +796,58 @@ void main() {
       await tester.tap(find.text('Flip V'));
       await tester.pump();
       expect(find.textContaining('Vertical Mirror Flip'), findsOneWidget);
+    });
+  });
+
+  group('SQA Phase 9: App Logo & Opening Splash Animation Verification', () {
+    testWidgets('SplashScreen displays custom AppLogo, branding, and status animation',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: SplashScreen(
+            duration: Duration(milliseconds: 200),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(AppLogo), findsOneWidget);
+      expect(find.text('DIP Studio'), findsOneWidget);
+      expect(find.text('DIGITAL IMAGE PROCESSING LAB'), findsOneWidget);
+      expect(find.textContaining('Sampling 2D Continuous Coordinates'), findsOneWidget);
+
+      // Fast-forward animation to completion
+      await tester.pump(const Duration(milliseconds: 300));
+    });
+
+    testWidgets('EditorScreen displays AppLogo in AppBar and verifies tools are hidden by default',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const DipStudioApp());
+      await tester.pump();
+
+      // Custom AppLogo is present in top navigation
+      expect(find.byType(AppLogo), findsAtLeastNWidgets(1));
+
+      // Tools & histogram hidden by default as requested
+      expect(find.text('Show'), findsOneWidget);
+      expect(find.text('RGB + Lum'), findsNothing);
+
+      // One-tap Show reveals workbench tools
+      await tester.tap(find.text('Show'));
+      await tester.pump();
+      expect(find.text('Hide'), findsOneWidget);
+      expect(find.text('Grayscale'), findsOneWidget);
+
+      // Tapping Hide collapses workbench again
+      await tester.tap(find.text('Hide'));
+      await tester.pump();
+      expect(find.text('Show'), findsOneWidget);
+      expect(find.text('Grayscale'), findsNothing);
+
+      // Tapping chart icon reveals histogram
+      await tester.tap(find.byIcon(Icons.bar_chart_rounded));
+      await tester.pump();
+      expect(find.text('RGB + Lum'), findsOneWidget);
     });
   });
 }
