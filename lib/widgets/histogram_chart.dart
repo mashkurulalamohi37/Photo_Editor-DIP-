@@ -6,12 +6,14 @@ class HistogramChart extends StatefulWidget {
   final HistogramData histogram;
   final int? activeThreshold;
   final bool compact;
+  final VoidCallback? onClose;
 
   const HistogramChart({
     super.key,
     required this.histogram,
     this.activeThreshold,
     this.compact = false,
+    this.onClose,
   });
 
   @override
@@ -20,12 +22,16 @@ class HistogramChart extends StatefulWidget {
 
 class _HistogramChartState extends State<HistogramChart> {
   bool _showRgbChannels = true;
+  bool _isCollapsed = false;
 
   @override
   Widget build(BuildContext context) {
     final h = widget.histogram;
     return Container(
-      padding: EdgeInsets.all(widget.compact ? 10 : 12),
+      padding: EdgeInsets.symmetric(
+        horizontal: widget.compact ? 10 : 12,
+        vertical: _isCollapsed ? 6 : (widget.compact ? 10 : 12),
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFF151922),
         borderRadius: BorderRadius.circular(14),
@@ -75,47 +81,114 @@ class _HistogramChartState extends State<HistogramChart> {
                   ),
                 ),
               ),
+              const SizedBox(width: 4),
+              // Collapse / Expand toggle
+              InkWell(
+                borderRadius: BorderRadius.circular(6),
+                onTap: () => setState(() => _isCollapsed = !_isCollapsed),
+                child: Tooltip(
+                  message: _isCollapsed ? 'Expand Histogram' : 'Collapse Histogram',
+                  child: Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Icon(
+                      _isCollapsed
+                          ? Icons.keyboard_arrow_down_rounded
+                          : Icons.keyboard_arrow_up_rounded,
+                      size: 16,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
+              if (widget.onClose != null) ...[
+                const SizedBox(width: 4),
+                InkWell(
+                  borderRadius: BorderRadius.circular(6),
+                  onTap: widget.onClose,
+                  child: Tooltip(
+                    message: 'Hide Histogram',
+                    child: Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.06),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Icon(
+                        Icons.close_rounded,
+                        size: 16,
+                        color: Colors.white54,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: widget.compact ? 74 : 96,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: _HistogramPainter(
-                histogram: h,
-                showRgb: _showRgbChannels,
-                thresholdMarker: widget.activeThreshold ?? h.otsuThreshold,
+          if (!_isCollapsed) ...[
+            const SizedBox(height: 8),
+            SizedBox(
+              height: widget.compact ? 74 : 96,
+              width: double.infinity,
+              child: CustomPaint(
+                painter: _HistogramPainter(
+                  histogram: h,
+                  showRgb: _showRgbChannels,
+                  thresholdMarker: widget.activeThreshold ?? h.otsuThreshold,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 10,
-            runSpacing: 4,
-            children: [
-              _StatBadge(
-                label: 'Mean μ',
-                value: h.meanIntensity.toStringAsFixed(1),
-                color: const Color(0xFF38BDF8),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 10,
+              runSpacing: 4,
+              children: [
+                _StatBadge(
+                  label: 'Mean μ',
+                  value: h.meanIntensity.toStringAsFixed(1),
+                  color: const Color(0xFF38BDF8),
+                ),
+                _StatBadge(
+                  label: 'Std σ',
+                  value: h.stdDevIntensity.toStringAsFixed(1),
+                  color: const Color(0xFFA78BFA),
+                ),
+                _StatBadge(
+                  label: 'Range',
+                  value: '[${h.minIntensity}..${h.maxIntensity}]',
+                  color: const Color(0xFF34D399),
+                ),
+                _StatBadge(
+                  label: 'Otsu T*',
+                  value: '${h.otsuThreshold}',
+                  color: const Color(0xFFFBBF24),
+                ),
+              ],
+            ),
+          ] else ...[
+            const SizedBox(height: 4),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text(
+                    'Mean μ: ${h.meanIntensity.toStringAsFixed(1)}   '
+                    'Std σ: ${h.stdDevIntensity.toStringAsFixed(1)}   '
+                    'Range: [${h.minIntensity}..${h.maxIntensity}]   '
+                    'Otsu T*: ${h.otsuThreshold}',
+                    style: const TextStyle(
+                      fontSize: 10.5,
+                      color: Colors.white60,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
-              _StatBadge(
-                label: 'Std σ',
-                value: h.stdDevIntensity.toStringAsFixed(1),
-                color: const Color(0xFFA78BFA),
-              ),
-              _StatBadge(
-                label: 'Range',
-                value: '[${h.minIntensity}..${h.maxIntensity}]',
-                color: const Color(0xFF34D399),
-              ),
-              _StatBadge(
-                label: 'Otsu T*',
-                value: '${h.otsuThreshold}',
-                color: const Color(0xFFFBBF24),
-              ),
-            ],
-          ),
+            ),
+          ],
         ],
       ),
     );

@@ -33,6 +33,7 @@ class _EditorScreenState extends State<EditorScreen> {
 
   bool _showHistogram = true;
   bool _splitCompareMode = false;
+  bool _isWorkbenchCollapsed = false;
   int _selectedTabIndex = 0;
 
   // Tab 1: Point & Enhancement parameters
@@ -647,6 +648,7 @@ class _EditorScreenState extends State<EditorScreen> {
                         activeThreshold:
                             _selectedTabIndex == 2 ? _manualThreshold : null,
                         compact: true,
+                        onClose: () => setState(() => _showHistogram = false),
                       ),
                     ],
                   ],
@@ -969,6 +971,33 @@ class _EditorScreenState extends State<EditorScreen> {
             onPressed: _operationHistory.isNotEmpty ? _resetToOriginal : null,
             icon: const Icon(Icons.restart_alt_rounded, size: 19),
           ),
+          // Fullscreen / Clean View Toggle
+          IconButton(
+            visualDensity: VisualDensity.compact,
+            tooltip: _isWorkbenchCollapsed && !_showHistogram
+                ? 'Show Tools & Histogram'
+                : 'Hide Tools (Fullscreen Photo)',
+            onPressed: () {
+              setState(() {
+                if (!_isWorkbenchCollapsed || _showHistogram) {
+                  _isWorkbenchCollapsed = true;
+                  _showHistogram = false;
+                } else {
+                  _isWorkbenchCollapsed = false;
+                  _showHistogram = true;
+                }
+              });
+            },
+            icon: Icon(
+              _isWorkbenchCollapsed && !_showHistogram
+                  ? Icons.fullscreen_exit_rounded
+                  : Icons.fullscreen_rounded,
+              size: 20,
+              color: _isWorkbenchCollapsed && !_showHistogram
+                  ? const Color(0xFF38BDF8)
+                  : Colors.white70,
+            ),
+          ),
         ],
       ),
     );
@@ -1023,6 +1052,8 @@ class _EditorScreenState extends State<EditorScreen> {
       (icon: Icons.straighten_rounded, label: 'Inspector'),
     ];
 
+    final currentTabName = tabs[_selectedTabIndex].label;
+
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF11151E),
@@ -1030,13 +1061,91 @@ class _EditorScreenState extends State<EditorScreen> {
         border: Border(
           top: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 10,
+            offset: const Offset(0, -3),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Category Selector Tabs
+          // 1. Professional Drawer Header (Drag Handle + Active Tool Name + Hide / Show Toggle)
+          InkWell(
+            onTap: () => setState(() => _isWorkbenchCollapsed = !_isWorkbenchCollapsed),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 7, 16, 3),
+              child: Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      _isWorkbenchCollapsed
+                          ? '$currentTabName (Tap to expand)'
+                          : '$currentTabName Tools',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: _isWorkbenchCollapsed
+                            ? const Color(0xFF38BDF8)
+                            : Colors.white60,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: _isWorkbenchCollapsed
+                            ? const Color(0xFF38BDF8).withValues(alpha: 0.4)
+                            : Colors.white12,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _isWorkbenchCollapsed
+                              ? Icons.keyboard_arrow_up_rounded
+                              : Icons.keyboard_arrow_down_rounded,
+                          size: 14,
+                          color: const Color(0xFF38BDF8),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          _isWorkbenchCollapsed ? 'Show' : 'Hide',
+                          style: const TextStyle(
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF38BDF8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // 2. Category Selector Tabs (Always accessible)
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+            padding: const EdgeInsets.fromLTRB(8, 2, 8, 4),
             child: Row(
               children: List.generate(tabs.length, (index) {
                 final tab = tabs[index];
@@ -1044,7 +1153,10 @@ class _EditorScreenState extends State<EditorScreen> {
                 return Expanded(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
-                    onTap: () => setState(() => _selectedTabIndex = index),
+                    onTap: () => setState(() {
+                      _selectedTabIndex = index;
+                      _isWorkbenchCollapsed = false;
+                    }),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 7),
                       decoration: BoxDecoration(
@@ -1086,15 +1198,16 @@ class _EditorScreenState extends State<EditorScreen> {
             ),
           ),
 
-          // Active Tab Panel Content
-          SizedBox(
-            height: 226,
-            child: SingleChildScrollView(
-              key: ValueKey<int>(_selectedTabIndex),
-              padding: const EdgeInsets.fromLTRB(14, 6, 14, 12),
-              child: _buildSelectedTabContent(),
+          // 3. Active Tab Panel Content (Collapsible!)
+          if (!_isWorkbenchCollapsed)
+            SizedBox(
+              height: 226,
+              child: SingleChildScrollView(
+                key: ValueKey<int>(_selectedTabIndex),
+                padding: const EdgeInsets.fromLTRB(14, 6, 14, 12),
+                child: _buildSelectedTabContent(),
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -1116,6 +1229,32 @@ class _EditorScreenState extends State<EditorScreen> {
     }
   }
 
+  Widget _buildSectionHeader(String title, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 13, color: const Color(0xFF38BDF8)),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white70,
+                letterSpacing: 0.2,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   // ===========================================================================
   // TAB 0: POINT OPERATIONS & HISTOGRAM ENHANCEMENT
   // ===========================================================================
@@ -1123,15 +1262,8 @@ class _EditorScreenState extends State<EditorScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Spatial Point Operations & Histogram Enhancement',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: Colors.white70,
-          ),
-        ),
-        const SizedBox(height: 8),
+        // Section 1: Tone & Point Operations
+        _buildSectionHeader('Tone & Point Operations', Icons.tune_rounded),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -1159,6 +1291,28 @@ class _EditorScreenState extends State<EditorScreen> {
               ),
             ),
             _ActionChipButton(
+              icon: Icons.functions_rounded,
+              label: 'Log Transform',
+              subtitle: 's = c·log(1 + r)',
+              onTap: () => _applyOperation(
+                title: 'Log Transformation',
+                category: 'Point Operation',
+                formula: 's = c · ln(1 + r), gain=${_logGain.toStringAsFixed(2)}',
+                processor: (img) =>
+                    DipEngine.applyLogTransform(img, gain: _logGain),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Section 2: Dynamic Range & Contrast
+        _buildSectionHeader('Dynamic Range & Contrast', Icons.equalizer_rounded),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            _ActionChipButton(
               icon: Icons.equalizer_rounded,
               label: 'Histogram Equalize',
               subtitle: 'Spreads CDF intensity',
@@ -1184,18 +1338,16 @@ class _EditorScreenState extends State<EditorScreen> {
                 processor: DipEngine.applyContrastStretch,
               ),
             ),
-            _ActionChipButton(
-              icon: Icons.functions_rounded,
-              label: 'Log Transform',
-              subtitle: 's = c·log(1 + r)',
-              onTap: () => _applyOperation(
-                title: 'Log Transformation',
-                category: 'Point Operation',
-                formula: 's = c · ln(1 + r), gain=${_logGain.toStringAsFixed(2)}',
-                processor: (img) =>
-                    DipEngine.applyLogTransform(img, gain: _logGain),
-              ),
-            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Section 3: Photo Geometry & Mirror
+        _buildSectionHeader('Photo Geometry & Transform', Icons.crop_rotate_rounded),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
             _ActionChipButton(
               icon: Icons.rotate_90_degrees_cw_rounded,
               label: 'Rotate 90°',
@@ -1234,7 +1386,10 @@ class _EditorScreenState extends State<EditorScreen> {
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
+
+        // Section 4: Sliders & Fine Adjustments
+        _buildSectionHeader('Fine Adjustments (Gamma & HSV)', Icons.tune_rounded),
 
         // Power-Law (Gamma) Interactive Slider
         Container(
@@ -1675,6 +1830,8 @@ class _EditorScreenState extends State<EditorScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Section 1: Thresholding & Edge Detection
+        _buildSectionHeader('Thresholding & Edge Detection', Icons.auto_graph_rounded),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -1712,6 +1869,16 @@ class _EditorScreenState extends State<EditorScreen> {
                 ),
               ),
             ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Section 2: Clustering & Morphology
+        _buildSectionHeader('Clustering & Morphological Operators', Icons.scatter_plot_rounded),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
             _ActionChipButton(
               icon: Icons.scatter_plot_rounded,
               label: 'K-Means (K=$_kMeansClusters)',
@@ -1753,7 +1920,10 @@ class _EditorScreenState extends State<EditorScreen> {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
+
+        // Section 3: Interactive Threshold & Region Growing
+        _buildSectionHeader('Manual Threshold & Seed Region Growing', Icons.touch_app_rounded),
 
         // Manual Thresholding & K-Means Cluster Selector Row
         Container(
