@@ -173,7 +173,11 @@ dip_studio/
 │   │   └── pixel_image.dart               # 2D RGBA PixelImage, HistogramData, DipOperationRecord
 │   ├── services/
 │   │   ├── dip_engine.dart                # Core DIP engine (pure Dart pixel processing algorithms)
-│   │   └── sample_image_generator.dart    # Procedural mathematical test image generator
+│   │   ├── sample_image_generator.dart    # Procedural mathematical test image generator
+│   │   ├── image_export_models.dart       # Export result metadata model
+│   │   ├── image_export_io.dart           # Native file saving to device Downloads / Pictures
+│   │   ├── image_export_web.dart          # Web browser anchor download support
+│   │   └── image_export_service.dart      # Platform conditional export service
 │   ├── screens/
 │   │   └── editor_screen.dart             # Main 5-tab workbench, interactive sliders, PNG export
 │   └── widgets/

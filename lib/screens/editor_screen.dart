@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../models/pixel_image.dart';
 import '../services/dip_engine.dart';
+import '../services/image_export_service.dart';
 import '../services/sample_image_generator.dart';
 import '../widgets/digitization_calculator_sheet.dart';
 import '../widgets/histogram_chart.dart';
@@ -171,63 +172,215 @@ class _EditorScreenState extends State<EditorScreen> {
   }
 
   Future<void> _showExportedPhotoDialog() async {
-    final pngBytes = await encodePixelImageToPng(_currentImage);
-    if (!mounted) return;
-
-    final sizeKb = (pngBytes.lengthInBytes / 1024.0).toStringAsFixed(1);
-    await showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF151922),
-        title: const Row(
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(
+      const SnackBar(
+        content: Row(
           children: [
-            Icon(Icons.check_circle_rounded, color: Color(0xFF34D399), size: 20),
-            SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'Edited Photo Ready (PNG)',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Color(0xFF38BDF8),
               ),
             ),
+            SizedBox(width: 12),
+            Text('Processing and saving high-res PNG...'),
           ],
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: SizedBox(
-                height: 180,
-                width: double.infinity,
-                child: Image.memory(
-                  pngBytes,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.none,
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '• Dimensions: ${_currentImage.width} × ${_currentImage.height} px\n'
-              '• Format: Lossless 32-bit RGBA PNG ($sizeKb KB)\n'
-              '• Edits Applied: ${_operationHistory.length} step(s)',
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.white70,
-                height: 1.45,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Close'),
-          ),
-        ],
+        duration: Duration(milliseconds: 900),
+        behavior: SnackBarBehavior.floating,
       ),
     );
+
+    try {
+      final pngBytes = await encodePixelImageToPng(_currentImage);
+      if (!mounted) return;
+
+      final sizeKb = (pngBytes.lengthInBytes / 1024.0).toStringAsFixed(1);
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final fileName = 'DIP_Studio_$timestamp.png';
+
+      final exportResult = await saveImageToDevice(pngBytes, fileName);
+      if (!mounted) return;
+
+      messenger.hideCurrentSnackBar();
+
+      if (exportResult.success) {
+        messenger.showSnackBar(
+          SnackBar(
+            backgroundColor: const Color(0xFF059669),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'Saved: $fileName\n${exportResult.filePath}',
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            action: exportResult.canShare
+                ? SnackBarAction(
+                    label: 'SHARE',
+                    textColor: Colors.white,
+                    onPressed: () => shareExportedImage(exportResult.filePath),
+                  )
+                : null,
+          ),
+        );
+      } else {
+        messenger.showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+            content: Text('Failed to save image: ${exportResult.message}'),
+          ),
+        );
+      }
+
+      await showDialog<void>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: const Color(0xFF151922),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+          ),
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 22),
+              ),
+              const SizedBox(width: 10),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Edited Photo Ready (PNG)',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+                    ),
+                    Text(
+                      'Saved to Device Storage',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF34D399)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white12),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    height: 190,
+                    width: double.infinity,
+                    child: Image.memory(
+                      pngBytes,
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.none,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A2234),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.2)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.folder_special_outlined, size: 16, color: Color(0xFF38BDF8)),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              'Saved: ${exportResult.filePath}',
+                              style: const TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(color: Colors.white10, height: 16),
+                      Text(
+                        '• Dimensions: ${_currentImage.width} × ${_currentImage.height} px\n'
+                        '• Format: Lossless 32-bit RGBA PNG ($sizeKb KB)\n'
+                        '• Edits Applied: ${_operationHistory.length} step(s)\n'
+                        '• Effective Sampling: ${_currentImage.effectiveWidth}×${_currentImage.effectiveHeight} (÷${_currentImage.samplingFactor})\n'
+                        '• Quantization Depth: ${_currentImage.quantizationBits}-bit (${_currentImage.grayLevels} levels)',
+                        style: const TextStyle(
+                          fontSize: 11.5,
+                          color: Colors.white70,
+                          height: 1.45,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          actions: [
+            if (exportResult.canShare)
+              FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFF38BDF8),
+                  foregroundColor: Colors.black,
+                  textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5),
+                ),
+                icon: const Icon(Icons.share_rounded, size: 16),
+                label: const Text('Share / Save to Gallery'),
+                onPressed: () => shareExportedImage(exportResult.filePath),
+              ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Close', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600)),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text('Export failed: $e'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   void _applyOperation({
@@ -406,7 +559,29 @@ class _EditorScreenState extends State<EditorScreen> {
           ),
           IconButton(
             tooltip: 'Export Edited Photo (PNG)',
-            icon: const Icon(Icons.download_rounded, size: 20),
+            icon: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3.5),
+              decoration: BoxDecoration(
+                color: const Color(0xFF10B981).withValues(alpha: 0.18),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFF34D399), width: 1.1),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.download_rounded, size: 15, color: Color(0xFF34D399)),
+                  SizedBox(width: 4),
+                  Text(
+                    'Save',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF34D399),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             onPressed: _showExportedPhotoDialog,
           ),
           IconButton(
@@ -482,6 +657,92 @@ class _EditorScreenState extends State<EditorScreen> {
             // 3. Bottom DIP Algorithm Workbench
             _buildBottomWorkbench(),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _showPhotoSourceSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: const Color(0xFF151922),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Icon(Icons.add_photo_alternate_rounded, color: Color(0xFF38BDF8), size: 22),
+                  SizedBox(width: 10),
+                  Text(
+                    'Load Photo to Edit',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Import any high-resolution image or photograph to apply digital image processing techniques.',
+                style: TextStyle(fontSize: 12, color: Colors.white60),
+              ),
+              const SizedBox(height: 18),
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(color: Colors.white12),
+                ),
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF38BDF8).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.photo_library_outlined, color: Color(0xFF38BDF8)),
+                ),
+                title: const Text('Choose from Gallery', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+                subtitle: const Text('PNG, JPG, WebP from device storage', style: TextStyle(fontSize: 11, color: Colors.white54)),
+                trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              const SizedBox(height: 10),
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(color: Colors.white12),
+                ),
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF34D399).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.photo_camera_outlined, color: Color(0xFF34D399)),
+                ),
+                title: const Text('Capture with Camera', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+                subtitle: const Text('Snap a real-world document or scene', style: TextStyle(fontSize: 11, color: Colors.white54)),
+                trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -567,12 +828,58 @@ class _EditorScreenState extends State<EditorScreen> {
       ),
       child: Row(
         children: [
-          // Preset selector dropdown
+          // Preset selector dropdown & Load Custom Photo button
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: SampleImageGenerator.presets.map((preset) {
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: _showPhotoSourceSheet,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF6366F1), Color(0xFF38BDF8)],
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF6366F1).withValues(alpha: 0.35),
+                              blurRadius: 4,
+                              offset: const Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.add_photo_alternate_rounded,
+                              size: 13,
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              '+ Photo',
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ...SampleImageGenerator.presets.map((preset) {
                   final isSelected = _activePresetId == preset.id;
                   return Padding(
                     padding: const EdgeInsets.only(right: 6),
@@ -622,7 +929,8 @@ class _EditorScreenState extends State<EditorScreen> {
                       ),
                     ),
                   );
-                }).toList(),
+                }),
+              ],
               ),
             ),
           ),
@@ -780,7 +1088,7 @@ class _EditorScreenState extends State<EditorScreen> {
 
           // Active Tab Panel Content
           SizedBox(
-            height: 196,
+            height: 226,
             child: SingleChildScrollView(
               key: ValueKey<int>(_selectedTabIndex),
               padding: const EdgeInsets.fromLTRB(14, 6, 14, 12),
