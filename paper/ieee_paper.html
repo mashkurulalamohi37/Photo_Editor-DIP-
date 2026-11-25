@@ -6,7 +6,7 @@
 <style>
   @page {
     size: letter;
-    margin: 0.7in 0.6in 0.75in 0.6in;
+    margin: 0.75in 0.65in 0.8in 0.65in;
   }
   
   *, *:before, *:after {
@@ -27,14 +27,14 @@
   .running-header {
     width: 100%;
     font-size: 7.5pt;
-    color: #444;
-    border-bottom: 0.5pt solid #888;
+    color: #333;
+    border-bottom: 0.5pt solid #666;
     padding-bottom: 2pt;
     margin-bottom: 12pt;
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
-    letter-spacing: 0.5pt;
+    letter-spacing: 0.4pt;
   }
 
   /* Title Block (Spans full width) */
@@ -45,16 +45,16 @@
   }
 
   h1.paper-title {
-    font-size: 21pt;
+    font-size: 20pt;
     font-weight: bold;
     line-height: 1.2;
-    margin: 0 0 8pt 0;
+    margin: 0 0 7pt 0;
     color: #000;
   }
 
   .author-block {
     font-size: 10.5pt;
-    margin-bottom: 4pt;
+    margin-bottom: 3pt;
     font-weight: bold;
   }
 
@@ -68,7 +68,7 @@
   /* Two Column Container */
   .two-column-layout {
     column-count: 2;
-    column-gap: 0.22in;
+    column-gap: 0.24in;
     text-align: justify;
     text-justify: inter-word;
   }
@@ -101,29 +101,20 @@
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-    margin-top: 11pt;
+    margin-top: 12pt;
     margin-bottom: 4pt;
     letter-spacing: 0.6pt;
     break-after: avoid;
   }
 
   h3.subsection-heading {
-    font-size: 9.5pt;
+    font-size: 9.4pt;
     font-weight: bold;
     font-style: italic;
     margin-top: 8pt;
     margin-bottom: 3pt;
     text-align: left;
     break-after: avoid;
-  }
-
-  h4.subsubsection-heading {
-    font-size: 9.2pt;
-    font-style: italic;
-    margin-top: 6pt;
-    margin-bottom: 2pt;
-    display: inline;
-    font-weight: normal;
   }
 
   p {
@@ -151,10 +142,12 @@
   .equation-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 5pt 0;
-    font-size: 9.5pt;
-    position: relative;
+    justify-content: space-between;
+    margin: 4.5pt 0;
+    font-size: 9.2pt;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
     page-break-inside: avoid;
   }
 
@@ -162,6 +155,7 @@
     text-align: center;
     font-style: italic;
     margin: 0 auto;
+    max-width: 86%;
   }
 
   .equation-math var {
@@ -169,15 +163,104 @@
     font-style: italic;
   }
 
-  .equation-math .roman {
-    font-style: normal;
-  }
-
   .equation-num {
     font-style: normal;
-    font-size: 9pt;
+    font-size: 8.8pt;
     margin-left: auto;
-    padding-left: 6pt;
+    padding-left: 4pt;
+    flex-shrink: 0;
+  }
+
+  /* Full Width Spanning Figure */
+  .full-width-figure {
+    column-span: all;
+    width: 100%;
+    margin: 12pt 0 14pt 0;
+    page-break-inside: avoid;
+  }
+
+  .architecture-container {
+    width: 100%;
+    border: 1pt solid #475569;
+    background-color: #f8fafc;
+    border-radius: 4pt;
+    padding: 8pt 10pt;
+  }
+
+  .arch-title {
+    font-size: 9.5pt;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    color: #0f172a;
+    border-bottom: 0.8pt solid #cbd5e1;
+    padding-bottom: 4pt;
+    margin-bottom: 8pt;
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6pt;
+  }
+
+  .arch-card {
+    background: #ffffff;
+    border: 0.8pt solid #94a3b8;
+    border-radius: 3pt;
+    padding: 5pt 6pt;
+  }
+
+  .arch-card-header {
+    font-size: 8pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #1e293b;
+    border-bottom: 0.5pt solid #e2e8f0;
+    padding-bottom: 2pt;
+    margin-bottom: 4pt;
+    text-align: center;
+  }
+
+  .arch-card-body {
+    font-size: 7.2pt;
+    line-height: 1.22;
+    color: #334155;
+  }
+
+  .arch-card-body ul {
+    margin: 0;
+    padding-left: 10pt;
+  }
+
+  .arch-card-body li {
+    margin-bottom: 1.5pt;
+    text-align: left;
+  }
+
+  .arch-flow-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #e2e8f0;
+    border-radius: 2pt;
+    padding: 3pt 8pt;
+    margin-bottom: 7pt;
+    font-size: 7.8pt;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .figure-caption {
+    font-size: 8pt;
+    text-align: center;
+    margin-top: 5pt;
+    color: #111;
+  }
+
+  .figure-caption b {
+    font-weight: bold;
   }
 
   /* Tables */
@@ -200,13 +283,6 @@
     font-weight: bold;
     margin-bottom: 4pt;
     letter-spacing: 0.5pt;
-  }
-
-  .table-subcaption {
-    font-size: 8pt;
-    text-align: center;
-    font-style: italic;
-    margin-bottom: 4pt;
   }
 
   table.ieee-table {
@@ -240,29 +316,8 @@
     text-align: center;
   }
 
-  table.ieee-table tr.total-row td {
-    border-top: 0.6pt solid #000;
-    border-bottom: 1.2pt solid #000;
-    font-weight: bold;
-  }
-
   table.ieee-table tr:last-child td {
     border-bottom: 1.2pt solid #000;
-  }
-
-  /* Diagram Box */
-  .diagram-box {
-    background-color: #f8fafc;
-    border: 0.8pt solid #cbd5e1;
-    border-radius: 3pt;
-    padding: 6pt 8pt;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 6.8pt;
-    line-height: 1.12;
-    margin: 7pt 0;
-    white-space: pre;
-    color: #0f172a;
-    page-break-inside: avoid;
   }
 
   /* Lists */
@@ -296,19 +351,19 @@
     vertical-align: middle;
     border-left: 1pt solid #000;
     border-right: 1pt solid #000;
-    padding: 0 2pt;
-    margin: 0 2pt;
-    border-radius: 2pt;
+    padding: 0 1.5pt;
+    margin: 0 1pt;
+    border-radius: 1.5pt;
   }
 
   .matrix table {
     border-collapse: collapse;
-    font-size: 8.5pt;
+    font-size: 7.5pt;
     font-style: normal;
   }
 
   .matrix td {
-    padding: 1pt 3pt;
+    padding: 0.5pt 2pt;
     text-align: center;
   }
 
@@ -317,7 +372,7 @@
     flex-direction: column;
     vertical-align: middle;
     text-align: center;
-    padding: 0 2pt;
+    padding: 0 1.5pt;
     font-size: 0.9em;
   }
 
@@ -382,38 +437,96 @@
 
   <h3 class="subsection-heading">A. Key Contributions</h3>
   <ul>
-    <li><b>Comprehensive Mathematical Pipeline:</b> Direct algorithmic formulation and implementation of the fundamental DIP syllabus: spatial sampling and quantization (<i>M</i> &times; <i>N</i> &times; <i>k</i>), power-law transformations, contrast stretching, CDF histogram equalization, spatial convolution vs. correlation, 4/8-neighbor Laplacian sharpening, Sobel gradients, Canny edge tracking, Otsu thresholding, <i>K</i>-Means vector clustering, seeded region growing, and morphological Minkowski operations.</li>
-    <li><b>Pure-Memory Direct Buffer Manipulation:</b> A linear 32-bit packed ARGB/RGBA memory architecture that bypasses intermediate GPU-CPU round-trips for deterministic, pixel-level manipulation with <i>O(MN)</i> spatial complexity.</li>
-    <li><b>Empirical Benchmarks & Quality Evaluation:</b> Comprehensive empirical latency and throughput evaluations across multiple image resolutions (256<sup>2</sup>, 512<sup>2</sup>, 1024<sup>2</sup>), paired with rigorous objective signal quality metrics (Mean Squared Error and Peak Signal-to-Noise Ratio) evaluating non-linear median vs. linear mean restorations under stochastic noise models.</li>
-    <li><b>Compact, Production-Grade Edge Deployment:</b> Compilation into a lightweight 19.9 MB standalone Android release package with a collapsible, human-factored UI drawer and interactive pixel inspector.</li>
+    <li><b>Comprehensive Mathematical Pipeline:</b> Direct algorithmic formulation of the complete DIP syllabus: sampling and quantization (<i>M &times; N &times; k</i>), power-law mappings, contrast stretching, CDF equalization, spatial convolution vs. correlation, 4/8-neighbor Laplacian, Sobel gradients, Canny edge tracking, Otsu thresholding, <i>K</i>-Means clustering, seeded region growing, and Minkowski morphology.</li>
+    <li><b>Pure-Memory Direct Buffer Model:</b> A linear 32-bit packed ARGB memory architecture bypassing intermediate GPU-CPU round-trips for deterministic manipulation with <i>O(MN)</i> space complexity.</li>
+    <li><b>Empirical Benchmarks & Quality Metrics:</b> Latency and throughput benchmarks across resolutions (256<sup>2</sup>, 512<sup>2</sup>, 1024<sup>2</sup>), paired with objective MSE and PSNR metrics evaluating median vs. mean restorations.</li>
+    <li><b>Compact Production Edge Deployment:</b> Standalone 19.9 MB release package with a collapsible, human-factored UI drawer and interactive pixel inspector.</li>
   </ul>
 
-  <!-- Section II -->
-  <h2 class="section-heading">II. Mathematical Foundations & Theoretical Framework</h2>
+</div><!-- End Two Column -->
 
-  <div class="diagram-box">+-------------------------------------------------------------------+
-|                  DIP STUDIO ENGINE CORE PIPELINE                  |
-+-------------------------------------------------------------------+
-  Continuous Scene f(x,y) ---> [ Sampling & Quantization ] (MxNxk)
-                                           |
-             +-----------------------------+-----------------------------+
-             |                                                           |
-  [ Spatial Point & Dynamics ]                                [ Spatial Linear & Non-Linear ]
-  - Grayscale (ITU-R BT.601)                                  - Conv vs Corr (Kernel Flip)
-  - Negative (Involution)                                     - Box Mean & 2D Gaussian
-  - Logarithmic Compression                                   - Order-Statistic Median Filter
-  - Power-Law (Gamma LUT)                                     - Laplacian 4/8-Neighbor Sharp
-  - Contrast Stretch & CDF Hist                               - Sobel Orthogonal Gradients
-             |                                                           |
-             +-----------------------------+-----------------------------+
-                                           |
-  [ Segmentation & Morphology ]            |            [ Color, Geometry & Inspection ]
-  - Otsu Between-Class Variance            |            - RGB &lt;--&gt; HSV Polar Colorspace
-  - Canny 5-Stage Edge Hysteresis          |            - Rotate 90 CW, Flip H, Flip V
-  - K-Means Vector Clusters (K=3..6)       |            - Euclidean, D4, D8 Distance
-  - Seeded Region Growing (4/8-Conn)       |            - Real-Time 256-Bin Luminance
-  - Minkowski Erosion &amp; Dilation           |            - Dual-Pointer Coordinate Probe
-+-------------------------------------------------------------------+</div>
+<!-- Full Width Spanning Figure 1 (Zero Column Overlap!) -->
+<div class="full-width-figure">
+  <div class="architecture-container">
+    <div class="arch-title">DIP Studio Native Vision Engine Architecture &amp; Data Pipeline</div>
+    <div class="arch-flow-bar">
+      <span>1. Continuous Scene <i>f(x, y)</i></span>
+      <span>&rarr;</span>
+      <span>2. Spatial Sampling (&Delta;<i>x</i>, &Delta;<i>y</i>) &amp; Quantization (<i>L</i> = 2<sup><i>k</i></sup>)</span>
+      <span>&rarr;</span>
+      <span>3. Contiguous 32-bit Packed ARGB Memory Buffer (<i>M &times; N &times; 4</i> Bytes)</span>
+      <span>&rarr;</span>
+      <span>4. Canvas Viewport &amp; Drawer UI</span>
+    </div>
+    <div class="arch-grid">
+      <!-- Pillar 1 -->
+      <div class="arch-card">
+        <div class="arch-card-header">Pillar I: Point &amp; Dynamics</div>
+        <div class="arch-card-body">
+          <ul>
+            <li>ITU-R BT.601 Grayscale</li>
+            <li>Photographic Negative</li>
+            <li>Logarithmic Compression</li>
+            <li>Power-Law Gamma (&gamma; LUT)</li>
+            <li>Linear Contrast Stretch</li>
+            <li>CDF Histogram Equalization</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Pillar 2 -->
+      <div class="arch-card">
+        <div class="arch-card-header">Pillar II: Spatial Filtering</div>
+        <div class="arch-card-body">
+          <ul>
+            <li>Convolution vs. Correlation</li>
+            <li>Arithmetic Box Mean (3&times;3)</li>
+            <li>Isotropic 2D Gaussian Blur</li>
+            <li>Order-Statistic Median Filter</li>
+            <li>4/8-Neighbor Laplacian</li>
+            <li>Sobel Orthogonal Gradients</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Pillar 3 -->
+      <div class="arch-card">
+        <div class="arch-card-header">Pillar III: Segmentation</div>
+        <div class="arch-card-body">
+          <ul>
+            <li>Otsu Variance Optimization</li>
+            <li>Canny 5-Stage Edge Pipeline</li>
+            <li><i>K</i>-Means Clustering (<i>K</i>=3..6)</li>
+            <li>Seeded Region Growing</li>
+            <li>Minkowski Set Erosion</li>
+            <li>Minkowski Set Dilation</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Pillar 4 -->
+      <div class="arch-card">
+        <div class="arch-card-header">Pillar IV: Inspection &amp; Geom.</div>
+        <div class="arch-card-body">
+          <ul>
+            <li>Polar RGB &harr; HSV Colorspace</li>
+            <li>Rotate 90&deg; CW &amp; Mirror Flip</li>
+            <li>Euclidean Distance (<i>D<sub>e</sub></i>)</li>
+            <li>City-Block Metric (<i>D</i><sub>4</sub>)</li>
+            <li>Chessboard Metric (<i>D</i><sub>8</sub>)</li>
+            <li>Reactive 256-Bin Histogram</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="figure-caption">
+    <b>Fig. 1.</b> High-level architectural pipeline of the DIP Studio native vision engine, tracing discrete 32-bit linear packed ARGB buffer flow from continuous spatial sampling and <i>k</i>-bit quantization through point operations, spatial convolution, non-linear restoration, statistical segmentation, and morphological set theory.
+  </div>
+</div>
+
+<!-- Two Column Layout Resumes -->
+<div class="two-column-layout">
+
+  <!-- Section II -->
+  <h2 class="section-heading">II. Mathematical Foundations &amp; Theoretical Framework</h2>
 
   <h3 class="subsection-heading">A. Digitization: Spatial Sampling and Quantization</h3>
   <p class="no-indent">
@@ -478,7 +591,7 @@
     3) <i>Logarithmic Compression:</i> Expands dark detail while compressing high dynamic ranges:
   </p>
   <div class="equation-row">
-    <span class="equation-math"><i>s</i> = <i>c</i> &middot; ln(1 + <i>r</i>), &emsp; <i>c</i> = <span class="fraction"><span class="numerator"><i>L</i> - 1</span><span class="denominator">ln(1 + <i>r</i><sub>max</sub>)</span></span> &approx; 45.986</span>
+    <span class="equation-math"><i>s</i> = <i>c</i> &middot; ln(1 + <i>r</i>), &emsp; <i>c</i> = (<i>L</i> - 1) / ln(1 + <i>r</i><sub>max</sub>)</span>
     <span class="equation-num">(8)</span>
   </div>
   <p>
@@ -496,7 +609,7 @@
     <span class="equation-num">(10)</span>
   </div>
 
-  <h3 class="subsection-heading">C. Dynamic Range Expansion & CDF Histogram Equalization</h3>
+  <h3 class="subsection-heading">C. Dynamic Range Expansion &amp; CDF Histogram Equalization</h3>
   <p class="no-indent">
     The intensity histogram is a discrete function <i>h(r<sub>k</sub>)</i> = <i>n<sub>k</sub></i>, where <i>n<sub>k</sub></i> is the count of pixels at intensity <i>r<sub>k</sub></i>. The normalized probability density function is:
   </p>
@@ -550,7 +663,7 @@
     Because impulse spikes (salt-and-pepper) represent extreme numerical outliers (0 or 255), the median statistic isolates and eliminates them without modifying neighboring monotonic edge transitions.
   </p>
 
-  <h3 class="subsection-heading">F. Sharpening & High-Pass Spatial Differentiation</h3>
+  <h3 class="subsection-heading">F. Sharpening &amp; High-Pass Spatial Differentiation</h3>
   <p class="no-indent">
     1) <i>Laplacian 2nd-Order Isotropic Operator:</i> Rotation-invariant second derivative &nabla;<sup>2</sup><i>f</i> = &part;<sup>2</sup><i>f</i>/&part;<i>x</i><sup>2</sup> + &part;<sup>2</sup><i>f</i>/&part;<i>y</i><sup>2</sup> discretized via:
   </p>
@@ -572,7 +685,7 @@
     3) <i>Canny Edge Pipeline:</i> Implements the optimal 5-stage pipeline [8]: Gaussian smoothing &rarr; Sobel gradients &rarr; Non-Maximum Suppression (quantized into 0&deg;, 45&deg;, 90&deg;, 135&deg;) &rarr; Dual-thresholding (<i>T</i><sub>low</sub>, <i>T</i><sub>high</sub>) &rarr; 8-connected Hysteresis edge tracking.
   </p>
 
-  <h3 class="subsection-heading">G. Segmentation & Morphological Set Operations</h3>
+  <h3 class="subsection-heading">G. Segmentation &amp; Morphological Set Operations</h3>
   <p class="no-indent">
     1) <i>Otsu's Variance Optimization:</i> Maximizes between-class variance &sigma;<sub><i>B</i></sub><sup>2</sup>(<i>T</i>) across foreground and background classes [5]:
   </p>
@@ -609,7 +722,7 @@
   </div>
 
   <!-- Section III -->
-  <h2 class="section-heading">III. System Architecture & Native Implementation</h2>
+  <h2 class="section-heading">III. System Architecture &amp; Native Implementation</h2>
   <p class="no-indent">
     Unlike traditional vision libraries that instantiate boxed pixel objects, DIP Studio structures image memory as a contiguous 32-bit linear byte buffer (`Uint8List`):
   </p>
@@ -625,7 +738,7 @@
   </p>
 
   <!-- Section IV -->
-  <h2 class="section-heading">IV. Experimental Evaluation & Empirical Results</h2>
+  <h2 class="section-heading">IV. Experimental Evaluation &amp; Empirical Results</h2>
   <p class="no-indent">
     Benchmarks were executed on an AMD Ryzen-class workstation (x86_64, 3.20 GHz) with ARM64 Android emulation over 5 iterations per operation across standardized resolutions: 256<sup>2</sup> (0.07 MP), 512<sup>2</sup> (0.26 MP), and 1024<sup>2</sup> (1.05 MP).
   </p>
@@ -671,7 +784,7 @@
       <tr><td class="left"><i>K</i>-Means Clustering (<i>K</i>=4)</td><td>14.23</td><td>4.61 MP/s</td><td>49.23</td><td>5.32 MP/s</td><td class="center">---</td><td class="center">---</td></tr>
       <tr><td class="left">Morphological Erosion (3&times;3)</td><td>7.15</td><td>9.17 MP/s</td><td>26.29</td><td>9.97 MP/s</td><td class="center">---</td><td class="center">---</td></tr>
       <tr><td class="left">Morphological Dilation (3&times;3)</td><td>6.23</td><td>10.52 MP/s</td><td>24.88</td><td>10.54 MP/s</td><td class="center">---</td><td class="center">---</td></tr>
-      <tr><td class="left" rowspan="2"><b>Geometry & Transform</b></td><td class="left">Rotate 90&deg; Clockwise</td><td>1.24</td><td>52.67 MP/s</td><td>2.20</td><td>118.97 MP/s</td><td>12.10</td><td>86.63 MP/s</td></tr>
+      <tr><td class="left" rowspan="2"><b>Geometry &amp; Transform</b></td><td class="left">Rotate 90&deg; Clockwise</td><td>1.24</td><td>52.67 MP/s</td><td>2.20</td><td>118.97 MP/s</td><td>12.10</td><td>86.63 MP/s</td></tr>
       <tr><td class="left">Horizontal Reflection</td><td>1.00</td><td>65.24 MP/s</td><td>2.18</td><td>120.48 MP/s</td><td>5.29</td><td>198.13 MP/s</td></tr>
     </tbody>
   </table>
@@ -706,7 +819,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td class="left" rowspan="3"><b>Salt & Pepper (10%)</b></td><td class="left">Unprocessed Noisy</td><td>2363.62</td><td>14.40 dB</td><td class="center">Baseline</td></tr>
+        <tr><td class="left" rowspan="3"><b>Salt &amp; Pepper (10%)</b></td><td class="left">Unprocessed Noisy</td><td>2363.62</td><td>14.40 dB</td><td class="center">Baseline</td></tr>
         <tr><td class="left">Arithmetic Mean (3&times;3)</td><td>429.00</td><td>21.81 dB</td><td>+7.41 dB</td></tr>
         <tr><td class="left"><b>Median Filter (3&times;3)</b></td><td><b>46.57</b></td><td><b>31.45 dB</b></td><td><b>+17.05 dB</b></td></tr>
         <tr><td class="left" rowspan="3"><b>Gaussian Noise (&sigma;=20)</b></td><td class="left">Unprocessed Noisy</td><td>361.64</td><td>22.55 dB</td><td class="center">Baseline</td></tr>
@@ -720,9 +833,9 @@
     Table II confirms the mathematical superiority of order-statistic filtering: while the 3&times;3 mean filter smears impulses (MSE 429.00), the <b>median filter reduces MSE to 46.57</b>, achieving a <b>+17.05 dB PSNR improvement</b> (+9.64 dB over arithmetic mean). For Gaussian noise, Gaussian weighted spatial filtering achieves the highest reconstruction fidelity (PSNR 27.24 dB).
   </p>
 
-  <h3 class="subsection-heading">B. Dynamic Range & Contrast Expansion</h3>
+  <h3 class="subsection-heading">B. Dynamic Range &amp; Contrast Expansion</h3>
   <div class="column-width-table">
-    <div class="table-caption">TABLE III: Dynamic Range Expansion & Intensity Dispersion</div>
+    <div class="table-caption">TABLE III: Dynamic Range Expansion &amp; Intensity Dispersion</div>
     <table class="ieee-table">
       <thead>
         <tr>
@@ -744,7 +857,7 @@
   </p>
 
   <!-- Section V -->
-  <h2 class="section-heading">V. Discussion & Comparative Analysis</h2>
+  <h2 class="section-heading">V. Discussion &amp; Comparative Analysis</h2>
   <p class="no-indent">
     Compared with OpenCV Android NDK configurations, DIP Studio provides marked operational advantages:
   </p>
@@ -759,7 +872,7 @@
   </p>
 
   <!-- Section VI -->
-  <h2 class="section-heading">VI. Conclusion & Future Work</h2>
+  <h2 class="section-heading">VI. Conclusion &amp; Future Work</h2>
   <p class="no-indent">
     We presented <b>DIP Studio</b>, a native cross-platform engine for real-time digital image processing and mathematical vision. Operating on linear 32-bit packed memory buffers without external C++ libraries, the engine delivers high throughput across the foundational DIP curriculum: point remappings, CDF equalization, spatial convolution, order-statistic median restoration, Canny edge detection, Otsu variance optimization, and mathematical morphology. Empirical benchmarks demonstrate point processing speeds exceeding 280 MP/s and a +17.05 dB PSNR restoration gain on impulse noise, packaged within a compact 19.9 MB binary. Future extensions include 2D FFT frequency domain filtering, Vulkan/Metal compute shaders, and discrete wavelet multiresolution analysis.
   </p>
