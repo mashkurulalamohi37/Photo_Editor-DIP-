@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 383" width="430" height="383" font-family="Arial, Helvetica, 'Segoe UI', sans-serif">
+<rect width="430" height="383" fill="#ffffff"/>
+<rect x="8" y="10" width="11" height="11" rx="2" fill="#1d4ed8"/>
+<text x="24" y="20" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Point &#38; intensity</text>
+<rect x="150" y="10" width="11" height="11" rx="2" fill="#0f766e"/>
+<text x="166" y="20" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Noise &#38; restoration</text>
+<rect x="292" y="10" width="11" height="11" rx="2" fill="#b45309"/>
+<text x="308" y="20" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Sharpening &#38; edges</text>
+<rect x="8" y="27" width="11" height="11" rx="2" fill="#be123c"/>
+<text x="24" y="37" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Segmentation</text>
+<rect x="150" y="27" width="11" height="11" rx="2" fill="#6d28d9"/>
+<text x="166" y="37" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Morphology &#38; geometry</text>
+<rect x="292" y="27" width="11" height="11" rx="2" fill="#475569"/>
+<text x="308" y="37" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Statistics</text>
+<line x1="122.0" y1="46" x2="122.0" y2="337" stroke="#e2e8f0" stroke-width="1"/>
+<text x="122.0" y="352" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >1</text>
+<line x1="148.89201294598232" y1="337" x2="148.89201294598232" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="164.62283208828984" y1="337" x2="164.62283208828984" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="175.78402589196463" y1="337" x2="175.78402589196463" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="184.44132038735103" y1="337" x2="184.44132038735103" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="191.51484503427218" y1="337" x2="191.51484503427218" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="197.49542490794028" y1="337" x2="197.49542490794028" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="202.67603883794698" y1="337" x2="202.67603883794698" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="207.24566417657968" y1="337" x2="207.24566417657968" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="211.33333333333331" y1="46" x2="211.33333333333331" y2="337" stroke="#e2e8f0" stroke-width="1"/>
+<text x="211.33333333333331" y="352" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >10</text>
+<line x1="238.22534627931566" y1="337" x2="238.22534627931566" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="253.95616542162315" y1="337" x2="253.95616542162315" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="265.11735922529795" y1="337" x2="265.11735922529795" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="273.77465372068434" y1="337" x2="273.77465372068434" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="280.8481783676055" y1="337" x2="280.8481783676055" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="286.8287582412736" y1="337" x2="286.8287582412736" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="292.0093721712803" y1="337" x2="292.0093721712803" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="296.57899750991305" y1="337" x2="296.57899750991305" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="300.66666666666663" y1="46" x2="300.66666666666663" y2="337" stroke="#e2e8f0" stroke-width="1"/>
+<text x="300.66666666666663" y="352" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >100</text>
+<line x1="327.55867961264903" y1="337" x2="327.55867961264903" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="343.2894987549565" y1="337" x2="343.2894987549565" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="354.4506925586313" y1="337" x2="354.4506925586313" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="363.1079870540177" y1="337" x2="363.1079870540177" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="370.1815117009388" y1="337" x2="370.1815117009388" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="376.16209157460696" y1="337" x2="376.16209157460696" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="381.3427055046136" y1="337" x2="381.3427055046136" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="385.9123308432463" y1="337" x2="385.9123308432463" y2="340" stroke="#94a3b8" stroke-width="0.8"/>
+<line x1="390.0" y1="46" x2="390.0" y2="337" stroke="#e2e8f0" stroke-width="1"/>
+<text x="390.0" y="352" font-size="11.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >1000</text>
+<line x1="122" y1="337" x2="390" y2="337" stroke="#475569" stroke-width="1"/>
+<line x1="122" y1="46" x2="122" y2="337" stroke="#475569" stroke-width="1"/>
+<text x="116" y="61.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Gamma LUT</text>
+<rect x="122" y="52" width="214.4" height="11" fill="#1d4ed8"/>
+<text x="340.43726052018155" y="61.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >251.4</text>
+<text x="116" y="76.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Negative</text>
+<rect x="122" y="67" width="200.1" height="11" fill="#1d4ed8"/>
+<text x="326.07314569532167" y="76.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >173.6</text>
+<text x="116" y="91.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Log transform</text>
+<rect x="122" y="82" width="193.3" height="11" fill="#1d4ed8"/>
+<text x="319.32493179965803" y="91.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >145.9</text>
+<text x="116" y="106.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Grayscale</text>
+<rect x="122" y="97" width="187.6" height="11" fill="#1d4ed8"/>
+<text x="313.5745545033581" y="106.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >125.8</text>
+<text x="116" y="121.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Contrast stretch</text>
+<rect x="122" y="112" width="158.8" height="11" fill="#1d4ed8"/>
+<text x="284.8093619824599" y="121.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >59.9</text>
+<text x="116" y="136.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Hist. equalization</text>
+<rect x="122" y="127" width="102.6" height="11" fill="#1d4ed8"/>
+<text x="228.58093937083729" y="136.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >14.1</text>
+<text x="116" y="151.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >256-bin histogram</text>
+<rect x="122" y="142" width="187.2" height="11" fill="#475569"/>
+<text x="313.24628951705824" y="151.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >124.8</text>
+<text x="116" y="166.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Mean 3×3</text>
+<rect x="122" y="157" width="99.2" height="11" fill="#0f766e"/>
+<text x="225.2126807867329" y="166.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >12.9</text>
+<text x="116" y="181.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Gaussian 3×3</text>
+<rect x="122" y="172" width="73.2" height="11" fill="#0f766e"/>
+<text x="199.15376370373156" y="181.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >6.6</text>
+<text x="116" y="196.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Median 3×3</text>
+<rect x="122" y="187" width="20.8" height="11" fill="#0f766e"/>
+<text x="146.8143191950324" y="196.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >1.7</text>
+<text x="116" y="211.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Sobel</text>
+<rect x="122" y="202" width="79.1" height="11" fill="#b45309"/>
+<text x="205.1427530222612" y="211.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >7.7</text>
+<text x="116" y="226.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Laplacian sharpen</text>
+<rect x="122" y="217" width="73.4" height="11" fill="#b45309"/>
+<text x="199.44701509020956" y="226.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >6.6</text>
+<text x="116" y="241.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Canny</text>
+<rect x="122" y="232" width="54.6" height="11" fill="#b45309"/>
+<text x="180.6472821819892" y="241.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >4.1</text>
+<text x="116" y="256.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Otsu threshold</text>
+<rect x="122" y="247" width="160.8" height="11" fill="#be123c"/>
+<text x="286.8149177913218" y="256.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >63.1</text>
+<text x="116" y="271.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >K-means (K=4)</text>
+<rect x="122" y="262" width="64.8" height="11" fill="#be123c"/>
+<text x="190.84810581835762" y="271.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >5.3</text>
+<text x="116" y="286.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Flip horizontal</text>
+<rect x="122" y="277" width="185.9" height="11" fill="#6d28d9"/>
+<text x="311.8950696578586" y="286.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >120.5</text>
+<text x="116" y="301.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Rotate 90°</text>
+<rect x="122" y="292" width="185.4" height="11" fill="#6d28d9"/>
+<text x="311.4057465683147" y="301.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >119.0</text>
+<text x="116" y="316.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Dilation 3×3</text>
+<rect x="122" y="307" width="91.4" height="11" fill="#6d28d9"/>
+<text x="217.37376123830313" y="316.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >10.5</text>
+<text x="116" y="331.5" font-size="11.5" font-weight="normal" font-style="normal" fill="#0f172a" text-anchor="end" >Erosion 3×3</text>
+<rect x="122" y="322" width="89.2" height="11" fill="#6d28d9"/>
+<text x="215.21676747584127" y="331.5" font-size="10.5" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >10.0</text>
+<text x="256.0" y="370" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Throughput at 512 × 512 (MP/s, log scale)</text>
+</svg>

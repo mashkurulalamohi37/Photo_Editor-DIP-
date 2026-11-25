@@ -1,0 +1,78 @@
+{
+  "restoration": {
+    "sp_noisy": {
+      "mse": 2363.62,
+      "psnr": 14.4
+    },
+    "sp_mean": {
+      "mse": 429.0,
+      "psnr": 21.81
+    },
+    "sp_median": {
+      "mse": 46.57,
+      "psnr": 31.45
+    },
+    "gauss_noisy": {
+      "mse": 361.64,
+      "psnr": 22.55
+    },
+    "gauss_mean": {
+      "mse": 134.55,
+      "psnr": 26.84
+    },
+    "gauss_gaussian": {
+      "mse": 122.85,
+      "psnr": 27.24
+    }
+  },
+  "contrast": {
+    "before": {
+      "min": 96,
+      "max": 148,
+      "spread": 52,
+      "occupiedLevels": 20,
+      "mean": 108.98,
+      "std": 16.82,
+      "otsu": 102
+    },
+    "after": {
+      "min": 0,
+      "max": 255,
+      "spread": 255,
+      "occupiedLevels": 18,
+      "mean": 70.26,
+      "std": 88.67,
+      "otsu": 86
+    }
+  },
+  "segmentation": {
+    "otsu_threshold": 104,
+    "canny_edge_pixel_ratio": 1.33
+  },
+  "digitization": {
+    "dig_a_s1_k8": {
+      "S": 1,
+      "k": 8,
+      "bits": 524288,
+      "psnr": 99.99
+    },
+    "dig_b_s8_k8": {
+      "S": 8,
+      "k": 8,
+      "bits": 8192,
+      "psnr": 27.95
+    },
+    "dig_c_s1_k3": {
+      "S": 1,
+      "k": 3,
+      "bits": 196608,
+      "psnr": 24.09
+    },
+    "dig_d_s1_k1": {
+      "S": 1,
+      "k": 1,
+      "bits": 65536,
+      "psnr": 11.83
+    }
+  }
+}

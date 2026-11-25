@@ -1,135 +1,171 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="100%" height="auto" style="font-family:'Times New Roman', Times, serif; background:#ffffff;">
-  <defs>
-    <!-- Gradients -->
-    <linearGradient id="gradHeader" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#1e293b" />
-    </linearGradient>
-    <linearGradient id="gradPillar1" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f0f9ff" />
-      <stop offset="100%" stop-color="#e0f2fe" />
-    </linearGradient>
-    <linearGradient id="gradPillar2" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#faf5ff" />
-      <stop offset="100%" stop-color="#f3e8ff" />
-    </linearGradient>
-    <linearGradient id="gradPillar3" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f0fdf4" />
-      <stop offset="100%" stop-color="#dcfce7" />
-    </linearGradient>
-    <linearGradient id="gradPillar4" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fffbeb" />
-      <stop offset="100%" stop-color="#fef3c7" />
-    </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.1" />
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155" />
-    </marker>
-  </defs>
-
-  <!-- Outer Border Box -->
-  <rect x="5" y="5" width="870" height="330" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.2" />
-
-  <!-- Top Title Bar -->
-  <rect x="6" y="6" width="868" height="32" rx="5" fill="url(#gradHeader)" />
-  <text x="440" y="27" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="0.8">
-    DIP STUDIO NATIVE ENGINE: ARCHITECTURAL PIPELINE &amp; DATA FLOW
-  </text>
-
-  <!-- Flow Bar: Input Stage -->
-  <rect x="25" y="48" width="180" height="34" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.2" filter="url(#shadow)" />
-  <text x="115" y="63" font-size="10.5" font-weight="bold" fill="#0369a1" text-anchor="middle">Continuous Scene f(x, y)</text>
-  <text x="115" y="76" font-size="8.5" fill="#64748b" text-anchor="middle">Optical Radiance Acquisition</text>
-
-  <!-- Arrow 1 -->
-  <line x1="205" y1="65" x2="235" y2="65" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)" />
-
-  <!-- Stage: Sampling & Quantization -->
-  <rect x="240" y="48" width="220" height="34" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2" filter="url(#shadow)" />
-  <text x="350" y="63" font-size="10" font-weight="bold" fill="#6d28d9" text-anchor="middle">Sampling &amp; Quantization</text>
-  <text x="350" y="76" font-size="8.5" fill="#64748b" text-anchor="middle">&Delta;x, &Delta;y &bull; Levels L = 2^k (k=1..8)</text>
-
-  <!-- Arrow 2 -->
-  <line x1="460" y1="65" x2="490" y2="65" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)" />
-
-  <!-- Stage: Linear ARGB Buffer -->
-  <rect x="495" y="48" width="360" height="34" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.4" filter="url(#shadow)" />
-  <text x="675" y="63" font-size="10.5" font-weight="bold" fill="#047857" text-anchor="middle">Linear 32-bit Packed ARGB Memory Buffer</text>
-  <text x="675" y="76" font-size="8.5" fill="#475569" text-anchor="middle">Direct Offset: (y &times; W + x) &lt;&lt; 2 &bull; Zero-Copy Hardware Memory</text>
-
-  <!-- Vertical Trunk Connector -->
-  <path d="M 440 82 L 440 98" stroke="#334155" stroke-width="2" marker-end="url(#arrow)" />
-
-  <!-- 4 Core Engine Pillars -->
-  <!-- Pillar 1 -->
-  <rect x="20" y="104" width="200" height="165" rx="5" fill="url(#gradPillar1)" stroke="#0284c7" stroke-width="1.2" filter="url(#shadow)" />
-  <rect x="20" y="104" width="200" height="24" rx="4" fill="#0284c7" />
-  <text x="120" y="120" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">PILLAR I: POINT &amp; TONE</text>
-  <g font-size="8.8" fill="#1e293b">
-    <text x="30" y="142">&bull; ITU-R BT.601 Grayscale</text>
-    <text x="30" y="159">&bull; Photographic Negative</text>
-    <text x="30" y="176">&bull; Logarithmic Transform</text>
-    <text x="30" y="193">&bull; Power-Law Gamma (&gamma; LUT)</text>
-    <text x="30" y="210">&bull; Contrast Stretching [r_min..r_max]</text>
-    <text x="30" y="227">&bull; CDF Histogram Equalization</text>
-    <text x="30" y="244">&bull; HSV Value Chromatic Preservation</text>
-    <text x="30" y="260" font-size="8" fill="#0284c7" font-weight="bold">Throughput: Up to 280.8 MP/s</text>
-  </g>
-
-  <!-- Pillar 2 -->
-  <rect x="235" y="104" width="200" height="165" rx="5" fill="url(#gradPillar2)" stroke="#7c3aed" stroke-width="1.2" filter="url(#shadow)" />
-  <rect x="235" y="104" width="200" height="24" rx="4" fill="#7c3aed" />
-  <text x="335" y="120" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">PILLAR II: SPATIAL FILTERS</text>
-  <g font-size="8.8" fill="#1e293b">
-    <text x="245" y="142">&bull; True Conv (180&deg; Flip) vs Corr</text>
-    <text x="245" y="159">&bull; Arithmetic Box Mean (3&times;3, 5&times;5)</text>
-    <text x="245" y="176">&bull; Isotropic 2D Gaussian (&sigma;=1.2)</text>
-    <text x="245" y="193">&bull; Order-Statistic Median Filter</text>
-    <text x="245" y="210">&bull; Laplacian Sharpen (4/8-Neighbor)</text>
-    <text x="245" y="227">&bull; Sobel Orthogonal Gradients |&nabla;f|</text>
-    <text x="245" y="244">&bull; Noise: Salt&amp;Pepper, Gauss, Speckle</text>
-    <text x="245" y="260" font-size="8" fill="#7c3aed" font-weight="bold">Restoration: &Delta;PSNR +17.05 dB</text>
-  </g>
-
-  <!-- Pillar 3 -->
-  <rect x="450" y="104" width="200" height="165" rx="5" fill="url(#gradPillar3)" stroke="#059669" stroke-width="1.2" filter="url(#shadow)" />
-  <rect x="450" y="104" width="200" height="24" rx="4" fill="#059669" />
-  <text x="550" y="120" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">PILLAR III: SEGMENTATION</text>
-  <g font-size="8.8" fill="#1e293b">
-    <text x="460" y="142">&bull; Otsu Between-Class Variance &sigma;_B^2</text>
-    <text x="460" y="159">&bull; 5-Stage Canny Edge Detection</text>
-    <text x="460" y="176">&bull; Hysteresis Contouring (T_lo, T_hi)</text>
-    <text x="460" y="193">&bull; K-Means Clustering (K=3,4,6)</text>
-    <text x="460" y="210">&bull; Seeded Region Growing (4/8-Conn)</text>
-    <text x="460" y="227">&bull; Minkowski Set Erosion (f &ominus; B)</text>
-    <text x="460" y="244">&bull; Minkowski Set Dilation (f &oplus; B)</text>
-    <text x="460" y="260" font-size="8" fill="#059669" font-weight="bold">Otsu Latency: 13.09 ms (1024^2)</text>
-  </g>
-
-  <!-- Pillar 4 -->
-  <rect x="665" y="104" width="195" height="165" rx="5" fill="url(#gradPillar4)" stroke="#d97706" stroke-width="1.2" filter="url(#shadow)" />
-  <rect x="665" y="104" width="195" height="24" rx="4" fill="#d97706" />
-  <text x="762" y="120" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">PILLAR IV: DIAGNOSTICS</text>
-  <g font-size="8.8" fill="#1e293b">
-    <text x="675" y="142">&bull; Polar RGB &harr; HSV Color Transform</text>
-    <text x="675" y="159">&bull; Rotate 90&deg; CW, Mirror Flip H/V</text>
-    <text x="675" y="176">&bull; Euclidean Distance: D_e(p, q)</text>
-    <text x="675" y="193">&bull; City-Block Distance: D_4(p, q)</text>
-    <text x="675" y="210">&bull; Chessboard Distance: D_8(p, q)</text>
-    <text x="675" y="227">&bull; Reactive 256-Bin Multi-Channel</text>
-    <text x="675" y="244">&bull; Dual-Point Interactive Probe</text>
-    <text x="675" y="260" font-size="8" fill="#d97706" font-weight="bold">Rot/Flip: Up to 198.1 MP/s</text>
-  </g>
-
-  <!-- Bottom Presentation & Export Stage -->
-  <path d="M 440 269 L 440 282" stroke="#334155" stroke-width="2" marker-end="url(#arrow)" />
-  <rect x="120" y="286" width="640" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.3" filter="url(#shadow)" />
-  <text x="440" y="302" font-size="10.5" font-weight="bold" fill="#0f172a" text-anchor="middle">
-    INTERACTIVE PRESENTATION &amp; PLATFORM-AGNOSTIC EXPORT
-  </text>
-  <text x="440" y="316" font-size="8.8" fill="#475569" text-anchor="middle">
-    85%+ Photo Canvas Area &bull; Collapsible Workbench Drawer &bull; Zero-NDK Native Storage Export &bull; 19.9 MB Package
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="Arial, Helvetica, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1e293b"/></marker><marker id="arrs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#475569"/></marker></defs>
+<rect width="860" height="400" fill="#ffffff"/>
+<rect x="6" y="36" width="128" height="316" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+<circle cx="26.299999999999997" cy="20" r="8.5" fill="#0f172a"/>
+<text x="26.299999999999997" y="24" font-size="11" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >1</text>
+<text x="40.3" y="24.5" font-size="11.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="start" letter-spacing="0.6">ACQUISITION</text>
+<rect x="150" y="36" width="128" height="316" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+<circle cx="166.6" cy="20" r="8.5" fill="#0f172a"/>
+<text x="166.6" y="24" font-size="11" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >2</text>
+<text x="180.6" y="24.5" font-size="11.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="start" letter-spacing="0.6">DIGITIZATION</text>
+<rect x="294" y="36" width="128" height="316" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+<circle cx="310.6" cy="20" r="8.5" fill="#0f172a"/>
+<text x="310.6" y="24" font-size="11" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >3</text>
+<text x="324.6" y="24.5" font-size="11.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="start" letter-spacing="0.6">MEMORY MODEL</text>
+<rect x="438" y="36" width="262" height="316" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+<circle cx="503.1" cy="20" r="8.5" fill="#0f172a"/>
+<text x="503.1" y="24" font-size="11" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >4</text>
+<text x="517.1" y="24.5" font-size="11.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="start" letter-spacing="0.6">PROCESSING ENGINE</text>
+<rect x="716" y="36" width="138" height="316" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+<circle cx="733.9" cy="20" r="8.5" fill="#0f172a"/>
+<text x="733.9" y="24" font-size="11" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >5</text>
+<text x="747.9" y="24.5" font-size="11.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="start" letter-spacing="0.6">ANALYSIS &#38; UI</text>
+<text x="70.0" y="52" font-size="10.5" font-weight="normal" font-style="italic" fill="#64748b" text-anchor="middle" >input sources</text>
+<rect x="14" y="60" width="112" height="32" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="70.0" y="80.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Camera capture</text>
+<rect x="14" y="100" width="112" height="32" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="70.0" y="120.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Gallery (JPEG/PNG)</text>
+<rect x="14" y="140" width="112" height="32" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="70.0" y="160.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Synthetic phantoms</text>
+<path d="M 70.0 172 L 70.0 183" fill="none" stroke="#475569" stroke-width="1.4" marker-end="url(#arrs)"/>
+<rect x="14" y="185" width="112" height="40" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="70.0" y="201.75" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Decode to</text>
+<text x="70.0" y="216.25" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >RGBA8888</text>
+<rect x="14" y="238" width="112" height="104" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="70.0" y="272.25" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Platform codecs</text>
+<text x="70.0" y="286.75" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >only; no native</text>
+<text x="70.0" y="301.25" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >CV libraries</text>
+<text x="70.0" y="315.75" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >(pure Dart, AOT)</text>
+<text x="214.0" y="52" font-size="10.5" font-weight="normal" font-style="italic" fill="#64748b" text-anchor="middle" >discretization</text>
+<rect x="158" y="60" width="112" height="76" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="214.0" y="87.5" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Spatial sampling</text>
+<text x="214.0" y="102.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >x′ = ⌊x / S⌋</text>
+<text x="214.0" y="116.5" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >S ∈ {1, 2, 4, 8}</text>
+<path d="M 214.0 136 L 214.0 148" fill="none" stroke="#475569" stroke-width="1.4" marker-end="url(#arrs)"/>
+<rect x="158" y="150" width="112" height="76" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="214.0" y="177.5" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Quantization</text>
+<text x="214.0" y="192.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >L = 2<tspan baseline-shift="super" font-size="8.5">k</tspan> gray levels</text>
+<text x="214.0" y="206.5" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >k ∈ {1, …, 8} bits</text>
+<path d="M 214.0 226 L 214.0 238" fill="none" stroke="#475569" stroke-width="1.4" marker-end="url(#arrs)"/>
+<rect x="158" y="240" width="112" height="102" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="214.0" y="273.25" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Storage cost</text>
+<text x="214.0" y="287.75" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >b = M × N × k</text>
+<text x="214.0" y="302.25" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >bits, shown live</text>
+<text x="214.0" y="316.75" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >in the calculator</text>
+<text x="358.0" y="52" font-size="10.5" font-weight="normal" font-style="italic" fill="#64748b" text-anchor="middle" >single source of truth</text>
+<rect x="302" y="60" width="112" height="282" rx="5" fill="#1e293b" stroke="#1e293b" stroke-width="1" />
+<text x="358.0" y="80" font-size="13" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >PixelImage</text>
+<text x="358.0" y="95" font-size="10.5" font-weight="normal" font-style="normal" fill="#cbd5e1" text-anchor="middle" >RGBA8888 Uint8List</text>
+<rect x="318.0" y="106" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="338.0" y="106" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="358.0" y="106" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="378.0" y="106" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="318.0" y="126" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="338.0" y="126" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="358.0" y="126" width="20" height="20" rx="1.5" fill="#f59e0b" stroke="#64748b" stroke-width="0.8" />
+<rect x="378.0" y="126" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="318.0" y="146" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="338.0" y="146" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="358.0" y="146" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<rect x="378.0" y="146" width="20" height="20" rx="1.5" fill="#334155" stroke="#64748b" stroke-width="0.8" />
+<text x="368.0" y="140.0" font-size="8.5" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >(x,y)</text>
+<path d="M 368.0 147 L 368.0 182" fill="none" stroke="#f59e0b" stroke-width="1.4" marker-end="url(#arrs)"/>
+<rect x="306.0" y="186" width="13" height="18" rx="1" fill="#dc2626" stroke="#1e293b" stroke-width="0.8" />
+<text x="312.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >R</text>
+<rect x="319.0" y="186" width="13" height="18" rx="1" fill="#16a34a" stroke="#1e293b" stroke-width="0.8" />
+<text x="325.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >G</text>
+<rect x="332.0" y="186" width="13" height="18" rx="1" fill="#2563eb" stroke="#1e293b" stroke-width="0.8" />
+<text x="338.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >B</text>
+<rect x="345.0" y="186" width="13" height="18" rx="1" fill="#94a3b8" stroke="#1e293b" stroke-width="0.8" />
+<text x="351.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >A</text>
+<rect x="358.0" y="186" width="13" height="18" rx="1" fill="#475569" stroke="#1e293b" stroke-width="0.8" />
+<text x="364.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >R</text>
+<rect x="371.0" y="186" width="13" height="18" rx="1" fill="#475569" stroke="#1e293b" stroke-width="0.8" />
+<text x="377.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >G</text>
+<rect x="384.0" y="186" width="13" height="18" rx="1" fill="#475569" stroke="#1e293b" stroke-width="0.8" />
+<text x="390.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >B</text>
+<rect x="397.0" y="186" width="13" height="18" rx="1" fill="#475569" stroke="#1e293b" stroke-width="0.8" />
+<text x="403.5" y="199" font-size="10" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle" >A</text>
+<text x="358.0" y="226" font-size="12" font-weight="bold" font-style="normal" fill="#fde68a" text-anchor="middle" font-family="Consolas, 'Courier New', monospace">i = 4(yW + x)</text>
+<text x="358.0" y="252" font-size="11" font-weight="normal" font-style="normal" fill="#e2e8f0" text-anchor="middle" >row-major and</text>
+<text x="358.0" y="267" font-size="11" font-weight="normal" font-style="normal" fill="#e2e8f0" text-anchor="middle" >contiguous</text>
+<text x="358.0" y="282" font-size="11" font-weight="normal" font-style="normal" fill="#e2e8f0" text-anchor="middle" >O(MN) memory</text>
+<text x="358.0" y="297" font-size="11" font-weight="normal" font-style="normal" fill="#e2e8f0" text-anchor="middle" >new buffer per op</text>
+<text x="358.0" y="326" font-size="11" font-weight="bold" font-style="normal" fill="#fde68a" text-anchor="middle" >→ undo history</text>
+<text x="569.0" y="52" font-size="10.5" font-weight="normal" font-style="italic" fill="#64748b" text-anchor="middle" >DipEngine: pure functions over the buffer</text>
+<rect x="458" y="62" width="228" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<rect x="458" y="62" width="6" height="50" rx="2" fill="#1d4ed8"/>
+<text x="474" y="79" font-size="12" font-weight="bold" font-style="normal" fill="#1d4ed8" text-anchor="start" >A. Point & intensity</text>
+<text x="474" y="93" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Grayscale, negative, log, γ-LUT</text>
+<text x="474" y="106" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Stretch, histogram eq., HSV</text>
+<rect x="458" y="120" width="228" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<rect x="458" y="120" width="6" height="50" rx="2" fill="#0f766e"/>
+<text x="474" y="137" font-size="12" font-weight="bold" font-style="normal" fill="#0f766e" text-anchor="start" >B. Noise & restoration</text>
+<text x="474" y="151" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Impulse, Gaussian, speckle models</text>
+<text x="474" y="164" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Mean, Gaussian, median filters</text>
+<rect x="458" y="178" width="228" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<rect x="458" y="178" width="6" height="50" rx="2" fill="#b45309"/>
+<text x="474" y="195" font-size="12" font-weight="bold" font-style="normal" fill="#b45309" text-anchor="start" >C. Sharpening & edges</text>
+<text x="474" y="209" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Laplacian, Sobel |∇f|, custom 3×3</text>
+<text x="474" y="222" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Canny: NMS + hysteresis</text>
+<rect x="458" y="236" width="228" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<rect x="458" y="236" width="6" height="50" rx="2" fill="#be123c"/>
+<text x="474" y="253" font-size="12" font-weight="bold" font-style="normal" fill="#be123c" text-anchor="start" >D. Segmentation</text>
+<text x="474" y="267" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Global and Otsu threshold T*</text>
+<text x="474" y="280" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >K-means, seeded region growing</text>
+<rect x="458" y="294" width="228" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<rect x="458" y="294" width="6" height="50" rx="2" fill="#6d28d9"/>
+<text x="474" y="311" font-size="12" font-weight="bold" font-style="normal" fill="#6d28d9" text-anchor="start" >E. Morphology & geometry</text>
+<text x="474" y="325" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Erosion ⊖, dilation ⊕</text>
+<text x="474" y="338" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="start" >Rotate 90°, flip H / V</text>
+<line x1="448" y1="87.0" x2="448" y2="319.0" stroke="#1e293b" stroke-width="1.6"/>
+<line x1="693" y1="87.0" x2="693" y2="319.0" stroke="#1e293b" stroke-width="1.6"/>
+<path d="M 448 87.0 L 457 87.0" fill="none" stroke="#1e293b" stroke-width="1.3" marker-end="url(#arrs)"/>
+<line x1="686" y1="87.0" x2="693" y2="87.0" stroke="#1e293b" stroke-width="1.3"/>
+<path d="M 448 145.0 L 457 145.0" fill="none" stroke="#1e293b" stroke-width="1.3" marker-end="url(#arrs)"/>
+<line x1="686" y1="145.0" x2="693" y2="145.0" stroke="#1e293b" stroke-width="1.3"/>
+<path d="M 448 203.0 L 457 203.0" fill="none" stroke="#1e293b" stroke-width="1.3" marker-end="url(#arrs)"/>
+<line x1="686" y1="203.0" x2="693" y2="203.0" stroke="#1e293b" stroke-width="1.3"/>
+<path d="M 448 261.0 L 457 261.0" fill="none" stroke="#1e293b" stroke-width="1.3" marker-end="url(#arrs)"/>
+<line x1="686" y1="261.0" x2="693" y2="261.0" stroke="#1e293b" stroke-width="1.3"/>
+<path d="M 448 319.0 L 457 319.0" fill="none" stroke="#1e293b" stroke-width="1.3" marker-end="url(#arrs)"/>
+<line x1="686" y1="319.0" x2="693" y2="319.0" stroke="#1e293b" stroke-width="1.3"/>
+<text x="785.0" y="52" font-size="10.5" font-weight="normal" font-style="italic" fill="#64748b" text-anchor="middle" >feedback to the user</text>
+<rect x="724" y="60" width="122" height="78" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="785.0" y="76" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Histogram &amp; stats</text>
+<rect x="736.0" y="107" width="5.1" height="3" fill="#475569" opacity="0.75"/>
+<rect x="742.1" y="105" width="5.1" height="5" fill="#475569" opacity="0.75"/>
+<rect x="748.2" y="101" width="5.1" height="9" fill="#475569" opacity="0.75"/>
+<rect x="754.4" y="96" width="5.1" height="14" fill="#475569" opacity="0.75"/>
+<rect x="760.5" y="90" width="5.1" height="20" fill="#475569" opacity="0.75"/>
+<rect x="766.6" y="93" width="5.1" height="17" fill="#475569" opacity="0.75"/>
+<rect x="772.8" y="98" width="5.1" height="12" fill="#475569" opacity="0.75"/>
+<rect x="778.9" y="95" width="5.1" height="15" fill="#475569" opacity="0.75"/>
+<rect x="785.0" y="88" width="5.1" height="22" fill="#475569" opacity="0.75"/>
+<rect x="791.1" y="92" width="5.1" height="18" fill="#475569" opacity="0.75"/>
+<rect x="797.2" y="99" width="5.1" height="11" fill="#475569" opacity="0.75"/>
+<rect x="803.4" y="103" width="5.1" height="7" fill="#475569" opacity="0.75"/>
+<rect x="809.5" y="105" width="5.1" height="5" fill="#475569" opacity="0.75"/>
+<rect x="815.6" y="102" width="5.1" height="8" fill="#475569" opacity="0.75"/>
+<rect x="821.8" y="104" width="5.1" height="6" fill="#475569" opacity="0.75"/>
+<rect x="827.9" y="107" width="5.1" height="3" fill="#475569" opacity="0.75"/>
+<line x1="788.1" y1="84" x2="788.1" y2="111" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="785.0" y="128" font-size="11" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >μ, σ, range, Otsu T*</text>
+<rect x="724" y="146" width="122" height="50" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="785.0" y="167.75" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Pixel inspector</text>
+<text x="785.0" y="182.25" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >D<tspan baseline-shift="sub" font-size="8.5">e</tspan>, D<tspan baseline-shift="sub" font-size="8.5">4</tspan>, D<tspan baseline-shift="sub" font-size="8.5">8</tspan> distances</text>
+<rect x="724" y="204" width="122" height="44" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="785.0" y="222.75" font-size="12" font-weight="bold" font-style="normal" fill="#0f172a" text-anchor="middle" >Before / after</text>
+<text x="785.0" y="237.25" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >hold-to-peek compare</text>
+<rect x="724" y="256" width="122" height="40" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="785.0" y="280.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >PNG export / share</text>
+<rect x="724" y="304" width="122" height="38" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+<text x="785.0" y="327.0" font-size="11.2" font-weight="normal" font-style="normal" fill="#334155" text-anchor="middle" >Undo / reset stack</text>
+<path d="M 132 205 L 151 205" fill="none" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M 276 205 L 295 205" fill="none" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M 420 205 L 448 205" fill="none" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M 693 205 L 717 205" fill="none" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M 785 352 L 785 370 L 358 370 L 358 354" fill="none" stroke="#b45309" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+<text x="571.5" y="389" font-size="11" font-weight="normal" font-style="italic" fill="#92400e" text-anchor="middle" >history loop: every result buffer can be re-fed as the next input (chained, undoable edits)</text>
 </svg>
