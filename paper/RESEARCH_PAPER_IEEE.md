@@ -1,6 +1,5 @@
 # DIP Studio: A Native Cross-Platform Engine for Real-Time Digital Image Processing, Mathematical Vision, and Edge Computing
 
-**Anonymous Authors**  
 *IEEE Transactions on Image Processing Format*
 
 ---

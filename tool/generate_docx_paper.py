@@ -39,7 +39,7 @@ def create_word_paper():
         header = section.header
         hp = header.paragraphs[0]
         hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        hrun = hp.add_run("IEEE TRANSACTIONS ON IMAGE PROCESSING  |  ANONYMOUS: DIP STUDIO NATIVE VISION ENGINE")
+        hrun = hp.add_run("IEEE TRANSACTIONS ON IMAGE PROCESSING  |  DIP STUDIO NATIVE VISION ENGINE")
         hrun.font.name = 'Times New Roman'
         hrun.font.size = Pt(8)
         hrun.font.color.rgb = RGBColor(0x55, 0x55, 0x55)
@@ -56,18 +56,10 @@ def create_word_paper():
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after = Pt(6)
+    p_title.paragraph_format.space_after = Pt(14)
     r_title = p_title.add_run("DIP Studio: A Native Cross-Platform Engine for Real-Time Digital Image Processing, Mathematical Vision, and Edge Computing")
     r_title.bold = True
     r_title.font.size = Pt(20)
-
-    # Author
-    p_author = doc.add_paragraph()
-    p_author.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_author.paragraph_format.space_after = Pt(14)
-    r_author = p_author.add_run("Anonymous Authors")
-    r_author.bold = True
-    r_author.font.size = Pt(11)
 
     # 3. Abstract Box
     p_abs = doc.add_paragraph()

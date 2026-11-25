@@ -346,13 +346,12 @@ def build_paper():
 <!-- Header (Clean without blind review mention) -->
 <div class="running-header">
   <span>IEEE Transactions on Image Processing</span>
-  <span>Anonymous: DIP Studio Native Vision Engine</span>
+  <span>DIP Studio Native Vision Engine</span>
 </div>
 
 <!-- Title Block -->
 <div class="title-block">
   <h1 class="paper-title">DIP Studio: A Native Cross-Platform Engine for Real-Time Digital Image Processing, Mathematical Vision, and Edge Computing</h1>
-  <div class="author-block">Anonymous Authors</div>
 </div>
 
 <!-- Two Column Body -->
